@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <script src='http://code.jquery.com/jquery-1.11.3.min.js'></script>
+        <script src='frame_string.js'></script>
+        <style>
+            #item{
+                height: 750px;
+                position: relative;
+            }
+
+            #ball{
+                bottom: 450px;
+                position: absolute;
+                width:300px;
+                height:300px;
+                left: 50%;
+                margin-left: -150px;
+                z-index: 100;
+            }
+
+            #shadow{
+                bottom: -150px;
+                position: absolute;
+                width:100px;
+                left: 50%;
+                margin-left: -50px;
+                height:100px;
+                border-radius: 150px;
+                background: #aaa;
+                z-index: 1;
+                transform: rotateX(75deg);
+            }
+        </style>
+        </head>
+    <body>
+
+        <div id="stage">
+            <div id="item">
+                <img id="ball" src='ball.png' />
+                <div id="shadow"></div>
+            </div>
+        </div>
+
+        <script>
+            var ANIMATION = new Array();
+            $(function(){
+                var ball = new FrameString();
+                ball.setObject($('#ball'));
+                ball.speed = 1.5;
+                //colide
+                ball.setAction('bottom','0px',3,2);
+                ball.setAction('height','280px',4,1);
+                //levanta
+                ball.setAction('bottom','100px',5);
+                ball.setAction('height','300px',5,1);
+                //colide
+                ball.setAction('bottom','0px',6);
+                ball.setAction('height','280px',6,1);
+                //levanta
+                ball.setAction('bottom','50px',7);
+                ball.setAction('height','300px',7,.5);
+                //colide
+                ball.setAction('bottom','0px',8);
+                ball.setAction('height','280px',8,.5);
+                //levanta
+                ball.setAction('bottom','20px',9,.5);
+                ball.setAction('height','300px',9,.5);
+                //colide
+                ball.setAction('bottom','0px',10,.5);
+                ball.setAction('height','280px',10,.5);
+                //sobe
+                ball.setAction('height','300px',11,.5);
+                ball.setAction('bottom','450px',15,6);
+
+                var shadow = frameString();
+                shadow.setObject($('#shadow'));
+                shadow.speed = 1.5;
+                //cresce
+                shadow.setAction('margin-left','-150px',3,3);
+                shadow.setAction('width','300px',3,3);
+                shadow.setAction('height','300px',3,3);
+                shadow.setAction('background','#555',3,3);
+                //diminui
+                shadow.setAction('width','100px',15,6);
+                shadow.setAction('margin-left','-50px',15,6);
+                shadow.setAction('height','100px',15,6);
+                shadow.setAction('background','#aaa',15,6);
+
+                shadow.start();
+                ball.start();
+
+                ANIMATION.push(shadow);
+                ANIMATION.push(ball);
+            });
+        </script>
+
+    </body>
+</html>
